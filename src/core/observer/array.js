@@ -7,7 +7,7 @@ import { def } from '../util/index'
 
 const arrayProto = Array.prototype
 export const arrayMethods = Object.create(arrayProto)
-
+// 修改数组元素的方法
 const methodsToPatch = [
   'push',
   'pop',

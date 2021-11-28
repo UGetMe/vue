@@ -27,6 +27,7 @@ Vue.config.getTagNamespace = getTagNamespace
 Vue.config.isUnknownElement = isUnknownElement
 
 // install platform runtime directives & components
+// 注册全局指令及组件
 extend(Vue.options.directives, platformDirectives)
 extend(Vue.options.components, platformComponents)
 
@@ -39,10 +40,12 @@ Vue.prototype.$mount = function (
   hydrating?: boolean
 ): Component {
   el = el && inBrowser ? query(el) : undefined
+  // 渲染DOM
   return mountComponent(this, el, hydrating)
 }
 
 // devtools global hook
+// 调试相关
 /* istanbul ignore next */
 if (inBrowser) {
   setTimeout(() => {

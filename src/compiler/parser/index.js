@@ -80,6 +80,7 @@ export function parse (
   template: string,
   options: CompilerOptions
 ): ASTElement | void {
+  // 1、解析options
   warn = options.warn || baseWarn
 
   platformIsPreTag = options.isPreTag || no
@@ -205,6 +206,7 @@ export function parse (
     }
   }
 
+  // 2、对模板解析
   parseHTML(template, {
     warn,
     expectHTML: options.expectHTML,
@@ -214,6 +216,7 @@ export function parse (
     shouldDecodeNewlinesForHref: options.shouldDecodeNewlinesForHref,
     shouldKeepComment: options.comments,
     outputSourceRange: options.outputSourceRange,
+    // 解析过程中的回调函数，生成AST
     start (tag, attrs, unary, start, end) {
       // check namespace.
       // inherit parent ns if there is one
@@ -268,6 +271,7 @@ export function parse (
         element = preTransforms[i](element, options) || element
       }
 
+      // 处理指令
       if (!inVPre) {
         processPre(element)
         if (element.pre) {
@@ -281,8 +285,12 @@ export function parse (
         processRawAttrs(element)
       } else if (!element.processed) {
         // structural directives
+        // 结构化的指令
+        // v-for
         processFor(element)
+        // v-if
         processIf(element)
+        // v-once
         processOnce(element)
       }
 
